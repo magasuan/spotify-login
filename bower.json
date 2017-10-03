@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "homepage": "",
-  "private": true,
+  "private": false,
   "dependencies": {
     "polymer": "Polymer/polymer#1.2",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#1.0.11",
