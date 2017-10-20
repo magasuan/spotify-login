@@ -1,5 +1,5 @@
 {
-  "name": "spotify",
+  "name": "spotify-login",
   "description": "un componente para ver mis canciones de cada lista",
   "main": "index.html",
   "keywords": [
