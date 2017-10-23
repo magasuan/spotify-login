@@ -36,10 +36,12 @@
                 margin-right: 10px;
             }
         </style>
-         <!-- <button class="btn btn-primary" id="btn-login" on-click="_login">Login</button> -->
+
+        <iron-ajax id="requestToken" url="https://api.spotify.com/v1/me" headers="{{headers}}"
+        method="GET" handleAs='json' on-response="_responseToken"></iron-ajax>
         
          
-         <paper-button class="large vertical-layout center-center" title="Google+" on-click="_login">
+         <paper-button class="large vertical-layout center-center" title="Spotify" on-click="_login">
             <iron-icon id="icono" src="https://assets.ifttt.com/images/channels/51464135/icons/on_color_large.png"></iron-icon>
             <span>Log in with Spotify</span>
           </paper-button>
@@ -71,6 +73,10 @@
                     value: "",
                     refrectToAttrbiute: true
                 },
+                headers: {
+                    type:Object,
+                    computed: '_getHeaders(token)'
+                }
             },
             _login: function(event, detail, sender){
                 var url = "https://accounts.spotify.com/authorize?&response_type=token"
@@ -86,14 +92,22 @@
                             var url =   win.document.URL;
                             var patron = "access_token"+"=([^&#]*)";
                             var exp = new RegExp(patron);
-                            back.acToken = exp.exec(url)[1];
-                            back.fire("spotify-logged",{token: back.acToken,redSocial:"spotify"});
+                            back.token = exp.exec(url)[1];
+                            //back.fire("spotify-logged",{token: back.acToken,redSocial:"spotify"});
                             back.logged= back.static?false:true;
                             win.close();
+                            back.$.requestToken.generateRequest();
                         }                       
                     } catch(e){    
                     }
                 }, 100);
+            },
+            _getHeaders: function (token) {
+                return { Authorization: 'Bearer ' + this.token };
+              },
+            _responseToken: function(e){
+                this.userId = e.detail.response.id;
+                this.fire('spotify-logged', {token: this.token, redSocial: 'spotify', userId: this.userId});
             }
         });
     </script>
