@@ -8,13 +8,14 @@
     </head>
     <body>
         <spotify-login scope="user-read-private user-read-email" client_id="a7b3de70814a40908fd482a8eb525878" on-spotify-logged='_func'></spotify-login>
-        <script>
-            
-            function _func(e){
-                console.log(e);
-            }
-            // document.querySelector('spotify-component').addEventListener('spotify-logged',_func)
+    </body>    
+	<script>
+           document.addEventListener("WebComponentsReady",function(){
+		window.setTimeout(function(){
+		  document.querySelector('spotify-login').click()
+		},500);
+	    });
             
         </script>
-    </body>
+    
     </html>
