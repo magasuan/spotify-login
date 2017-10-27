@@ -78,6 +78,9 @@
                     computed: '_getHeaders(token)'
                 }
             },
+	    listeners: {
+              "tap":"_login"
+            },
             _login: function(event, detail, sender){
                 var url = "https://accounts.spotify.com/authorize?&response_type=token"
                 url += '&scope='+this.scope;
